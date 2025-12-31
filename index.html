@@ -1,0 +1,89 @@
+<!DOCTYPE html>
+<html lang="pt-BR">
+<head>
+<meta charset="UTF-8">
+<title>Pedido Especial 💚</title>
+<style>
+  body { display:flex; justify-content:center; align-items:center; height:100vh; font-family:Arial; text-align:center; background:#a5d6a7; }
+  button { padding:12px 24px; font-size:1rem; border:none; border-radius:20px; cursor:pointer; margin:10px; }
+</style>
+</head>
+<body>
+
+<div id="container">
+  <p id="text">Oi amor, clique no botão pra começar 💚</p>
+  <button id="startBtn">Continuar</button>
+</div>
+
+<audio id="music" src="music.mp3" loop></audio>
+
+<script>
+const container = document.getElementById("container");
+const textEl = document.getElementById("text");
+const startBtn = document.getElementById("startBtn");
+const music = document.getElementById("music");
+
+music.volume = 0.25;
+
+const texts = [
+  "Eu fiz isso pensando em você.",
+  "No seu jeito calmo.",
+  "No jeito que você faz tudo ficar mais leve.",
+  "Desde que você apareceu, algo mudou.",
+  "E eu percebi que meu lugar ficou mais bonito.",
+  "Então eu só queria te perguntar uma coisa…"
+];
+
+let step = 0;
+
+startBtn.addEventListener("click", () => {
+  music.play().catch(e => console.log("Erro ao tocar música:", e));
+
+  if(step < texts.length){
+    textEl.textContent = texts[step];
+    step++;
+  } else {
+    showQuestion();
+  }
+});
+
+function showQuestion(){
+  container.innerHTML = `
+    <p>Você quer namorar comigo?</p>
+    <button id="simBtn">SIM 💚</button>
+    <button id="naoBtn">NÃO</button>
+  `;
+  const naoBtn = document.getElementById("naoBtn");
+  naoBtn.addEventListener("mouseover", () => {
+    const x = Math.random() * (window.innerWidth - 100);
+    const y = Math.random() * (window.innerHeight - 50);
+    naoBtn.style.position = "absolute";
+    naoBtn.style.left = x + "px";
+    naoBtn.style.top = y + "px";
+  });
+  document.getElementById("simBtn").addEventListener("click", yes);
+}
+
+function yes(){
+  container.innerHTML = `
+    <p>
+      Oi, amor.<br><br>
+      Eu queria te falar uma coisa.<br>
+      Eu me esforcei muito pra fazer isso, e tudo aqui foi pensado em você.<br><br>
+      Eu sei que talvez não seja a coisa mais bem feita do mundo, e confesso que, por você, eu faria algo ainda maior se conseguisse. Mas o que nunca faltou aqui foi verdade.<br><br>
+      Eu não consigo parar de imaginar o que a gente tem agora.<br>
+      Um namoro.<br>
+      A gente.<br><br>
+      Obrigado por sempre estar comigo, mesmo nas nossas brigas bobas.<br>
+      Eu gosto muito de você, da sua personalidade, do seu jeitinho todo fofo, de quem você é quando é simplesmente você.<br><br>
+      Eu quero te levar pra vida.<br><br>
+      Você apareceu do nada, num momento difícil pra mim, quando eu já não tinha esperança de encontrar alguém. E foi tudo tão rápido, um sentimento tão forte, que eu me apaixonei por você sem nem perceber.<br><br>
+      Eu te amo muito.<br>
+      Obrigado por aceitar 💚
+    </p>
+  `;
+}
+</script>
+
+</body>
+</html>
